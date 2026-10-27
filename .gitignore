@@ -1,0 +1,10 @@
+# secrets
+.env
+*.token
+alertmanager/alertmanager.local.yml
+
+# local junk
+*.log
+*.swp
+.DS_Store
+bigfile
