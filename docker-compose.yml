@@ -1,6 +1,7 @@
 services:
   prometheus:
     image: prom/prometheus:latest
+    restart: unless-stopped
     volumes:
       - ./prometheus:/etc/prometheus:ro
       - prometheus_data:/prometheus
@@ -9,12 +10,14 @@ services:
 
   alertmanager:
     image: prom/alertmanager:latest
+    restart: unless-stopped
     volumes:
       - ./alertmanager:/etc/alertmanager:ro
     ports: ["9093:9093"]
 
   node-exporter:
     image: prom/node-exporter:latest
+    restart: unless-stopped
     network_mode: host
     pid: host
     command: ["--path.rootfs=/host"]
@@ -23,6 +26,7 @@ services:
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
+    restart: unless-stopped
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:ro
@@ -32,6 +36,7 @@ services:
 
   blackbox:
     image: prom/blackbox-exporter:latest
+    restart: unless-stopped
     volumes:
       - ./blackbox/blackbox.yml:/etc/blackbox_exporter/config.yml:ro
     ports: ["9115:9115"]
@@ -39,6 +44,7 @@ services:
 
   grafana:
     image: grafana/grafana:latest
+    restart: unless-stopped
     ports: ["3000:3000"]
     volumes:
       - grafana_data:/var/lib/grafana
